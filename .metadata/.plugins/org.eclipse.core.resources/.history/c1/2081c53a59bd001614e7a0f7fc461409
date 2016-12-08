@@ -1,0 +1,48 @@
+package proj;
+
+public class NoeudBinaire {
+
+	private int valeur;
+
+    private NoeudBinaire nd, ng;
+
+    public NoeudBinaire(int valeur, NoeudBinaire nbd, NoeudBinaire nbg) {
+      this.valeur = valeur;
+      this.nd = nbd;
+      this.ng = nbg;
+    }
+
+    public NoeudBinaire(int valeur) {
+      this(valeur, null, null);
+    }
+    
+    public NoeudBinaire() {
+        this(null, null, null);
+      }
+
+    public int getValeur() {
+      return valeur;
+    }
+
+    public NoeudBinaire getNd() {
+      return nd;
+    }
+
+    public NoeudBinaire getNg() {
+      return ng;
+    }
+
+    public void setNd(NoeudBinaire nbd) {
+      this.nd = nbd;
+    }
+
+    public void setNg(NoeudBinaire nbg) {
+      this.ng = nbg;
+    }
+	
+    @Override
+    public String toString() {
+      return "[NoeudBinaire:valeur=" + valeur +"; ng=" + ng + "; nd=" + nd + "]";
+    }
+	
+}

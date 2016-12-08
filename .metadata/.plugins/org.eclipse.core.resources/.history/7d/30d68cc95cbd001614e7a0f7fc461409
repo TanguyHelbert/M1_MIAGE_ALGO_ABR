@@ -1,0 +1,28 @@
+package proj;
+
+import java.io.*;
+
+public class TABR {
+
+	private String fi;
+	private int[] intervalle;
+	private ArbreBinaireRecherche abr;
+
+	public TABR(String fi) {
+		this.fi = fi;
+		analyseFichier();
+	}
+	
+	private void analyseFichier(){
+		InputStream ips=new FileInputStream(fichier); 
+		InputStreamReader ipsr=new InputStreamReader(ips);
+		BufferedReader br=new BufferedReader(ipsr);
+		String ligne;
+		
+		while ((ligne=br.readLine())!=null){
+			System.out.println(ligne);
+			chaine+=ligne+"\n";
+		}
+		br.close(); 
+	}	
+}

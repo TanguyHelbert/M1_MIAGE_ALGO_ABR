@@ -1,0 +1,14 @@
+package proj;
+
+import java.io.File;
+
+public class TABR {
+
+	private File fi;
+
+	public TABR(File fi) {
+		this.fi = fi;
+	}
+	
+	
+}

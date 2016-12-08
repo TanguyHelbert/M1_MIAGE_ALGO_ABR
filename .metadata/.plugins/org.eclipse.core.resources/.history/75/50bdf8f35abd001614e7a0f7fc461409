@@ -1,0 +1,9 @@
+package proj;
+
+import java.io.file;
+
+public class TABR {
+
+	private file fi;
+	
+}

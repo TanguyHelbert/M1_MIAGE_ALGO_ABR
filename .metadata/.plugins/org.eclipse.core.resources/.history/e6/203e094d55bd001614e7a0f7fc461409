@@ -1,0 +1,57 @@
+package proj;
+
+import java.util.Comparator;
+
+public class ArbreBinaireRecherche<E> {
+	
+	private NoeudBinaire<E> racine;
+	
+	public ArbreBinaireRecherche(E e) {
+	    this.racine = new NoeudBinaire<E>(e);
+	}
+
+	public ArbreBinaireRecherche() {
+	    this.racine = new NoeudBinaire<E>(null);
+	}
+
+	public NoeudBinaire<E> getRacine() {
+		return racine;
+	}
+
+	public void setRacine(NoeudBinaire<E> racine) {
+		this.racine = racine;
+	}
+	
+	  public void insere(E elt) {
+		    if (elt == null) {
+		      throw new IllegalArgumentException("Un ABR ne contient que des élements non null");
+		    }
+		    
+		    if (racine == null)
+		      racine = new NoeudBinaire<E> (elt);
+		    else
+		      insereRecursif(elt, racine);
+		  }
+
+		  /**
+		   * Insère un élément à partir d'un noeud.
+		   * Si l'élément est &lt; à la valeur du noeud, il est inséré dans l'arborescence
+		   * du sous-noeud gauche, sinon il est inséré à partir du sous-noeud droit.
+		   * Pré-condition : le noeud n'est pas <code>null</code>.
+		   * @param elt E l'élément à insérer
+		   * @param n Noeud le noeud dans l'arborescence duquel elt sera inséré.
+		   */
+		  private void insereRecursif(E elt, NoeudBinaire<E> n) {
+		    if (compare(n.getValeur(), elt) < 0)
+		      if (n.getNd() == null)
+		        n.setNd(new NoeudBinaire<E> (elt));
+		      else
+		        insereRecursif(elt, n.getNd());
+		    else
+		      if (n.getNg() == null)
+			n.setNg(new NoeudBinaire<E> (elt));
+		      else
+			insereRecursif(elt, n.getNg());
+		  }
+
+}

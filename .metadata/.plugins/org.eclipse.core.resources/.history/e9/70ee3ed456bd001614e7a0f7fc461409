@@ -1,0 +1,14 @@
+package proj;
+
+import java.util.Comparator;
+
+public class CompareNoeuds<Integer> implements Comparator<Integer> {
+	public int compare(int e1, int e2) {
+    if (e1 > e2)
+      return +1;
+    else if (e1 < e2)
+      return -1;
+    else
+      return 0;
+  }
+}

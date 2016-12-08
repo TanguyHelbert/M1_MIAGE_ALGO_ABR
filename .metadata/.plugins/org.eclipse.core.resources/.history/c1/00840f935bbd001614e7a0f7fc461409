@@ -1,0 +1,20 @@
+package proj;
+
+import java.io.File;
+
+public class TABR {
+
+	private File fi;
+	private int[] intervalle;
+	private ArbreBinaireRecherche abr;
+
+	public TABR(File fi) {
+		this.fi = fi;
+	}
+	
+	private void analyseFichier(){
+		
+	}
+	
+	
+}

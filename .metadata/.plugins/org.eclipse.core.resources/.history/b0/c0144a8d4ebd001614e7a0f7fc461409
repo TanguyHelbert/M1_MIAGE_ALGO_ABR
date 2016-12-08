@@ -1,0 +1,48 @@
+package proj;
+
+public class NoeudBinaire<E> {
+
+	private E valeur;
+    /**
+     * Noeuds gauche (ng) et droit (nd) de l'arbre.
+     * nd contient les éléments supérieurs à la valeur du noeud.
+     * ng contient les éléments inférieurs ou égaux à la valeur du noeud.
+     */
+    private NoeudBinaire<E> nd, ng;
+
+    public NoeudBinaire(E valeur, NoeudBinaire<E> nbd, NoeudBinaire<E> nbg) {
+      this.valeur = valeur;
+      this.nd = nbd;
+      this.ng = nbg;
+    }
+
+    public NoeudBinaire(E valeur) {
+      this(valeur, null, null);
+    }
+
+    public E getValeur() {
+      return valeur;
+    }
+
+    public NoeudBinaire<E> getNd() {
+      return nd;
+    }
+
+    public NoeudBinaire<E> getNg() {
+      return ng;
+    }
+
+    public void setNd(NoeudBinaire<E> nbd) {
+      this.nd = nbd;
+    }
+
+    public void setNg(NoeudBinaire<E> nbg) {
+      this.ng = nbg;
+    }
+	
+    @Override
+    public String toString() {
+      return "[NoeudBinaire:valeur=" + valeur +"; ng=" + ng + "; nd=" + nd + "]";
+    }
+	
+}

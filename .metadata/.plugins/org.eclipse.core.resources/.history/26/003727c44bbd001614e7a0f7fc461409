@@ -1,0 +1,29 @@
+public class NoeudBinaire {
+
+	public int valeur;
+	protected ArbreBinaireRecherche sag, sad;
+
+	public NoeudBinaire(int e, ArbreBinaireRecherche g, ArbreBinaireRecherche d) {
+		valeur=e;
+		sag=g;
+		sad=d;
+	}
+
+	public NoeudBinaire(int e) {
+		valeur=e;
+		sag=sad=ArbreBinaireRecherche.arbreVide;
+	}
+
+	public int valeur() {
+		return valeur;
+	}
+
+	public void setValeur(int valeur) {
+		this.valeur = valeur;
+	}
+
+	public void changerValeur(int e) {
+		valeur=e;
+	}
+
+}
