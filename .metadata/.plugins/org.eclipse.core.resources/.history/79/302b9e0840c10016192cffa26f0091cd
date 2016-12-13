@@ -1,0 +1,29 @@
+package proj;
+
+import java.util.ArrayList;
+
+public class TabABR {
+	private String file;
+	private ArrayList<Case> tabr;
+	
+	public TabABR(String fi, ArrayList<Case> tabr) {
+		this.fi = fi;
+		this.tabr = tabr;
+	}
+
+	public String getFi() {
+		return fi;
+	}
+
+	public void setFi(String fi) {
+		this.fi = fi;
+	}
+
+	public ArrayList<Case> getTabr() {
+		return tabr;
+	}
+
+	public void setTabr(ArrayList<Case> tabr) {
+		this.tabr = tabr;
+	}
+}

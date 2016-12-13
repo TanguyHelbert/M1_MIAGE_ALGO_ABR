@@ -1,0 +1,78 @@
+package proj;
+
+import java.io.*;
+import java.util.ArrayList;
+
+public class TABR {
+
+	private String fi;
+	//private ArrayList<int[]> allinter;
+	private int[] intervalle;
+	private ArbreBinaireRecherche abr;
+
+	public TABR(String fi) {
+		//this.allinter = new ArrayList<>();
+		this.fi = fi;
+		analyseFichier();
+	}
+	
+	private void analyseFichier(){
+		this.intervalle = new int[2];
+		this.abr = new ArbreBinaireRecherche();
+		String ligne = "";
+		String[] interArbre;
+		String inter = "";
+		String[] valInter;
+		String arbre = "";
+		String[] valArbre;
+		int maxBorne = 0;
+		
+		try{
+			// Parcours pour les intervalles
+			InputStream ips=new FileInputStream(this.fi); 
+			InputStreamReader ipsr=new InputStreamReader(ips);
+			BufferedReader br=new BufferedReader(ipsr);
+						
+			while ((ligne=br.readLine())!=null){
+				valInter = inter.split(":");
+				this.intervalle[0] = Integer.parseInt(valInter[0]);
+				this.intervalle[1] = Integer.parseInt(valInter[1]);
+				
+				if(this.intervalle[0] > this.intervalle[1]){
+					this.intervalle[0] = Integer.parseInt(valInter[1]);
+					this.intervalle[1] = Integer.parseInt(valInter[0]);
+					//System.out.println("La première de l'intervalle était trop grande elle a échangée de place avec la deuxième");
+				}			
+							
+				for (int i = 0 ; i < this.intervalle.length ; i++){
+					System.out.println(this.intervalle[i]);
+				}
+			}
+			br.close(); 
+			/*
+			// Parcours pour les arbres
+			ips=new FileInputStream(this.fi); 
+			ipsr=new InputStreamReader(ips);
+			br=new BufferedReader(ipsr);
+			
+			while ((ligne=br.readLine())!=null){
+				interArbre = ligne.split(";");
+				inter = interArbre[0];
+				valArbre = arbre.split(":");
+				maxBorne = valArbre.length -1;
+				for (int i = maxBorne ; i >= 0; i--){
+					if(i == maxBorne)
+						this.abr = new ArbreBinaireRecherche();
+					if(Integer.parseInt(valArbre[i]) >= this.intervalle[0] && Integer.parseInt(valArbre[i]) <= this.intervalle[1])
+						this.abr.insere(Integer.parseInt(valArbre[i]));
+					else
+						System.out.println("Nombre " + valArbre[i] + " n'appartient pas à l'intervalle : [" + this.intervalle[0] + " ; " + this.intervalle[1] + "]");
+				} 
+				System.out.println(this.abr.getRacine().toString());
+			}
+			br.close(); */
+		} catch (Exception e){
+			System.out.println(e.toString());
+		}
+	}	
+}

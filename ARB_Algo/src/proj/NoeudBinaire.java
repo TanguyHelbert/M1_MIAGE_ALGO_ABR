@@ -13,12 +13,18 @@ public class NoeudBinaire {
     }
 
     public NoeudBinaire(int valeur) {
-      this(valeur, null, null);
+      this.valeur = valeur;
+      this.nd = null;
+      this.ng = null;
     }
     
     public NoeudBinaire() {
         this(-1, null, null);
-      }
+    }
+    
+    public boolean estVide() {
+    	return this.valeur == -1;
+    }
 
     public int getValeur() {
       return valeur;
@@ -44,5 +50,4 @@ public class NoeudBinaire {
     public String toString() {
       return "[NoeudBinaire:valeur=" + valeur +"; ng=" + ng + "; nd=" + nd + "]";
     }
-	
 }

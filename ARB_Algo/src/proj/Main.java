@@ -22,7 +22,12 @@ public class Main {
 //		
 //		System.out.println(abr1.getRacine().toString());
 		
-		TABR listeABR = new TABR("/comptes/E134287P/M1_MIAGE/algo_proj/test.txt");
+		TabABR listeABR = new TabABR();
+		listeABR.fichierABR("/comptes/E134287P/M1_MIAGE/algo_proj/test.txt");
+		System.out.println(listeABR.getTabr().get(0).getAbr().parcoursSuffixe());
+		//listeABR.abrFichier("/comptes/E134287P/M1_MIAGE/algo_proj/testSauv.txt");
+		System.out.println("aff");
+		listeABR.affichage();
 	}
 
 }

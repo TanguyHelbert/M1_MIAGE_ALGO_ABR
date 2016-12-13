@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;proj.TABR&apos; to &apos;TABR_FAKE&apos;&#x0A;- Original project: &apos;ARB_Algo&apos;&#x0A;- Original element: &apos;proj.TABR&apos;&#x0A;- Renamed element: &apos;proj.TABR_FAKE&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;TABR&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;proj{TABR.java[TABR" matchStrategy="1" name="TABR_FAKE" qualified="false" references="true" similarDeclarations="false" stamp="1481639051858" textual="false" version="1.0"/>
+</session>
