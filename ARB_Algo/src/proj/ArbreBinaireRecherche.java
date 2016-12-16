@@ -55,8 +55,10 @@ public class ArbreBinaireRecherche{
 
 	public String parcoursSuffixe() {
 		String result = "";
-		result = SuffixeRecursif(this.getRacine());
-		result = result.substring(0,(result.length()-1));
+		if(this.getRacine().getValeur() != -1) {
+			result = SuffixeRecursif(this.getRacine());
+			result = result.substring(0,(result.length()-1));
+		}
 		return result;
 	}
 
