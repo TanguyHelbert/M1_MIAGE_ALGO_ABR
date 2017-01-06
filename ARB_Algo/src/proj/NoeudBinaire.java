@@ -38,6 +38,15 @@ public class NoeudBinaire {
       return ng;
     }
 
+    public void supprNoeudBinaire() {
+        if(this.ng != null || this.nd != null){
+        	System.out.println("Vous ne pouvez pas supprimer ce noeud, il possede des fils");
+        } else {
+        	this.valeur = -1;
+        }
+        	
+    }
+    
     public void setNd(NoeudBinaire nbd) {
       this.nd = nbd;
     }

@@ -23,20 +23,54 @@ public class Main {
 //		System.out.println(abr1.getRacine().toString());
 		
 		TabABR listeABR = new TabABR();
-//		listeABR.fichierABR("/comptes/E134287P/M1_MIAGE/algo_proj/test.txt");
+		System.out.println("Creation du TABR par fichier :");
+		listeABR.fichierABR("txt/test.txt");
+//		System.out.println("Lecture suffixe premier ABR :");
 //		System.out.println(listeABR.getTabr().get(0).getAbr().parcoursSuffixe());
-//		//listeABR.abrFichier("/comptes/E134287P/M1_MIAGE/algo_proj/testSauv.txt");
-//		System.out.println("aff");
+//		listeABR.abrFichier("txt/testSauv.txt");
+		System.out.println("Affichage :");
+		listeABR.affichage();
+//		System.out.println("Insertion dans TABR (hors interv) :");
+//		System.out.println(listeABR.insertTABR(7));
+//		System.out.println("Insertion dans TABR (existe) :");
+//		System.out.println(listeABR.insertTABR(3));
+//		System.out.println("Insertion dans TABR (vrai) :");
+//		System.out.println(listeABR.insertTABR(79));
+//		System.out.println("Affichage :");
 //		listeABR.affichage();
+//		System.out.println("Suppresion dans TABR (hors interv) :");
+//		System.out.println(listeABR.supprTABR(7));
+//		System.out.println("Suppression dans TABR (existe pas) :");
+//		System.out.println(listeABR.supprTABR(79));
+//		System.out.println("Suppression dans TABR (vrai) :");
+//		System.out.println(listeABR.supprTABR(14));
+//		System.out.println("Affichage :");
+//		listeABR.affichage();
+//		System.out.println("Fusion de deux cases (hors interv)");
+//		System.out.println(listeABR.fusionCase(6));
+//		System.out.println("Fusion de deux cases (max)");
+//		System.out.println(listeABR.fusionCase(3));
+//		System.out.println("Fusion de deux cases (vrai)");
+//		System.out.println(listeABR.fusionCase(1));
+//		System.out.println("Affichage :");
+//		listeABR.affichage();
+		System.out.println(listeABR.getTabr().get(2).getAbr().profondeur(listeABR.getTabr().get(2).getAbr().getRacine(), true));
+		System.out.println(listeABR.getTabr().get(2).getAbr().profondeur(listeABR.getTabr().get(2).getAbr().getRacine(), false));
 		
-		listeABR = aleaTABR(10,80);
-		listeABR.affichage();
-		listeABR = aleaTABR(9,80);
-		listeABR.affichage();
+//		listeABR = aleaTABR(10,80);
+//		listeABR.affichage();
+//		listeABR = aleaTABR(9,80);
+//		listeABR.affichage();
 	}
 	
+	/**
+	 * aleaTABR permet de creer un TABR de n cases ou T[1].debut = 1 et T[n].fin = m chaque ABR contient au moins 3 elements
+	 * @param n : nombre de cases du tableau
+	 * @param m : valeur maximale contenu dans T[n].fin
+	 * @return renvoit le TABR aleatoire
+	 */
 	public static TabABR aleaTABR(int n, int m){
-		TabABR tabalea = new TabABR();	// TABR aléatoire
+		TabABR tabalea = new TabABR();	// TABR aleatoire
 		Case c;
 		int min = 1;					// Intervalle minimal
 		int max = 0;					// Intervalle maximal

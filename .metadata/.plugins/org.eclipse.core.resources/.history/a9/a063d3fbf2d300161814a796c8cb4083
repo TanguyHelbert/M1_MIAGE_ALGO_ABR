@@ -1,0 +1,161 @@
+package proj;
+
+public class ArbreBinaireRecherche{
+
+	private NoeudBinaire racine;
+
+
+	public ArbreBinaireRecherche(int e) {
+		this.racine = new NoeudBinaire(e);
+	}
+
+	public ArbreBinaireRecherche() {
+		this.racine = new NoeudBinaire();
+	}
+
+	public NoeudBinaire getRacine() {
+		return racine;
+	}
+
+	public void setRacine(NoeudBinaire racine) {
+		this.racine = racine;
+	}
+
+	
+	public void insere(int elt) {
+		if (elt < 0)
+			throw new IllegalArgumentException("Un ABR ne contient que des elements positifs");
+
+		if (this.racine.getValeur() == -1)
+			this.racine = new NoeudBinaire (elt);
+		else
+			insereRecursif(elt, this.racine);
+	}
+
+	/**
+	 * Insere un element a partir d'un noeud.
+	 * Si l'element est inferieur a la valeur du noeud, il est insere dans l'arborescence
+	 * du sous-noeud gauche, sinon il est insere a partir du sous-noeud droit.
+	 * Pre-condition : le noeud n'est pas null.
+	 * @param elt E l'element à inserer
+	 * @param n Noeud le noeud dans l'arborescence duquel elt sera insere.
+	 */
+	private void insereRecursif(int elt, NoeudBinaire nb) {
+		if (nb.getValeur() < elt){
+			if (nb.getNd() == null)
+				nb.setNd(new NoeudBinaire (elt));
+			else
+				insereRecursif(elt, nb.getNd());
+		} else {
+			if (nb.getNg() == null)
+				nb.setNg(new NoeudBinaire (elt));
+			else
+				insereRecursif(elt, nb.getNg());
+		}
+	}
+
+	public void supprime(int elt) {
+		if (elt < 0)
+			throw new IllegalArgumentException("Un ABR ne contient que des elements positifs");
+		if (this.racine.getValeur() == -1)
+			System.out.println("L'arbe est deja vide");
+		else
+			supprimeRecursif(elt, this.racine, null);
+	}
+	
+	private void supprimeRecursif(int elt, NoeudBinaire nb, NoeudBinaire parent) {
+
+		// Le noeud a supprimer n'a pas de fils
+		if(nb.getNg() != null & nb.getNd() != null){
+			nb.supprNoeudBinaire();
+		// Le noeud a supprimer a un fils gauche
+		} else if(nb.getNg() != null & nb.getNd() == null) {
+			if (parent != null)
+				parent.setNg(nb.getNg());
+		// Le noeud a supprimer a un fils droit
+		} else if(nb.getNg() == null & nb.getNd() != null) {
+		
+		// Le noeud a supprimer a deux fils
+		} else {
+			
+		}
+	}
+	
+	/**
+	 * Renvoie le parcours suffixe du tableau
+	 * @return chaine propre representant le parcours suffixe du tableau
+	 */
+	public String parcoursSuffixe() {
+		String result = "";		// Chaine de retour
+		// Si l'ABR n'est pas null
+		if(this.getRacine().getValeur() != -1) {
+			// On construit le parcours et on retire le caractere ':'
+			result = suffixeRecursif(this.getRacine());
+			result = result.substring(0,(result.length()-1));
+		}
+		return result;
+	}
+
+	/**
+	 * Permet de construire la chaine du parcours suffixe
+	 * @param nb noeud binaire auquel on prend la valeur et les fils
+	 * @return parcours suffixe de l'ABR
+	 */
+	private String suffixeRecursif(NoeudBinaire nb) {
+		// Si le noeud n'est pas vide
+		if(!nb.estVide()){
+			// On regarde les fils de nb
+			// S'il en a, on les re-parcours tous les deux
+			if(nb.getNg() != null & nb.getNd() != null){
+				return suffixeRecursif(nb.getNg()) + suffixeRecursif(nb.getNd()) + nb.getValeur() + ":";
+			// Sinon, on parcours le fils existant
+			} else if(nb.getNg() != null) {
+				return suffixeRecursif(nb.getNg()) + nb.getValeur() + ":"; 
+			} else if(nb.getNd() != null) {
+				return suffixeRecursif(nb.getNd()) + nb.getValeur() + ":";
+			// Sinon on renvoit juste la valeur
+			} else {
+				return nb.getValeur() + ":";
+			}
+		// Sinon on renvoit une chaine vide
+		} else {
+			return "";
+		}
+	}
+	
+	/**
+	 * Fonction permettant de verifier l'existence d'un element dans un ABR
+	 * @param x  valeur recherche
+	 * @param nb noeud binaire dans lequel on recherche
+	 * @return vrai si l'element existe faux sinon
+	 */
+	public Boolean existe(int x, NoeudBinaire nb){
+		// Si le noeud n'est pas vide on compare sa valeur
+		if(!nb.estVide()){
+			// Si elle est superieure a x, on compare avec le fils gauche s'il existe
+			if (x < nb.getValeur()){
+				if(nb.getNg() != null) {
+					return existe(x, nb.getNg());
+				// S'il n'existe pas, l'element x n'existe pas dans l'ABR
+				} else {
+					return false;
+				}
+			// Si elle est inferieure a x, on compare avec le fils droit s'il existe
+			} else if ( x > nb.getValeur()) {
+				if(nb.getNd() != null) {
+					return existe(x, nb.getNd());
+				// S'il n'existe pas, l'element x n'existe pas dans l'ABR
+				} else {
+					return false;
+				}
+			// Si elle est egale, l'element x existe deja dans l'ABR
+			} else {
+				return true;
+			}
+		// Si le noeud est vide, l'element x n'existe pas dans l'ABR
+		} else {
+			return false;
+		}
+	}
+
+}
