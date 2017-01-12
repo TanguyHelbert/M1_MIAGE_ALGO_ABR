@@ -3,9 +3,9 @@
 <fullyQualifiedTypeName name="java.lang.System"/>
 <fullyQualifiedTypeName name="java.util.Comparator"/>
 <fullyQualifiedTypeName name="java.util.ArrayList"/>
-<fullyQualifiedTypeName name="proj.ArbreBinaireRecherche"/>
-<fullyQualifiedTypeName name="proj.NoeudBinaire"/>
 <fullyQualifiedTypeName name="java.io.OutputStreamWriter"/>
 <fullyQualifiedTypeName name="java.io.FileOutputStream"/>
+<fullyQualifiedTypeName name="proj.ArbreBinaireRecherche"/>
 <fullyQualifiedTypeName name="java.lang.Math"/>
+<fullyQualifiedTypeName name="proj.NoeudBinaire"/>
 </qualifiedTypeNameHistroy>

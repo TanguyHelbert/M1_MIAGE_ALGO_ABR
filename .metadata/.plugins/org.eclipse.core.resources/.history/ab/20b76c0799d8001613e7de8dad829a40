@@ -1,0 +1,592 @@
+package proj;
+
+import java.io.BufferedReader;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
+import java.io.OutputStreamWriter;
+import java.util.ArrayList;
+import java.util.Collections;
+
+public class TabABR {
+	private ArrayList<Case> tabr;
+	
+	public TabABR() {
+		this.tabr = new ArrayList<>();
+	}
+	
+	/**
+	 * 2.1.1 : fichierABR lit le fichier envoye et genere le TABR correspondant
+	 * @param file chemin + nom du fichier a ecrire
+	 */
+	public String fichierVersTABR(String file){
+		Case c;				// Case du TABR (intervalle ; ABR)
+		int precMax;		// recupere le T[i-1].fin
+		String ligne = "";	// ligne du fichier texte
+		String[] interArbre;// stocke la partie intervalle et abr, de la ligne, dans un tableau
+		String inter = "";	// contient l'intervalle de interArbre 
+		String[] valInter;	// segmente l'intervalle dans un tableau
+		String arbre = "";	// contient l'arbre de interArbre
+		String[] valArbre;	// segmente l'abre dans un tableau
+		int maxBorne = 0;	// borne de fin de parcours du de l'ABR de la ligne
+		int indexCase = 0;	// indice de l'ABR dans le TABR
+		
+		try{
+			// Parcours pour les intervalles
+			InputStream ips=new FileInputStream(file); 
+			InputStreamReader ipsr=new InputStreamReader(ips);
+			BufferedReader br=new BufferedReader(ipsr);
+						
+			while ((ligne=br.readLine())!=null){
+				interArbre = ligne.split(";");	// Recuperation de la ligne de texte splitte
+				inter = interArbre[0];			// Recuperation de la partie intervalle
+				valInter = inter.split(":");	// Splitt de la liste d'intervalle par :
+				c = new Case(Integer.parseInt(valInter[0]),Integer.parseInt(valInter[1]));
+				if(this.tabr.size()==0){
+					this.tabr.add(c);
+				} else {
+					precMax = this.tabr.get(this.tabr.size()-1).getFin();
+					// Verification de l'ordonnement croissant sur l'intervalle precedent
+					if(precMax > c.getDebut())
+						c.setDebut(++precMax);
+					this.tabr.add(c);
+				}
+			}
+			br.close(); 
+			
+			// Parcours pour les arbres
+			ips=new FileInputStream(file); 
+			ipsr=new InputStreamReader(ips);
+			br=new BufferedReader(ipsr);
+			
+			indexCase = 0;
+			// Tant qu'on lit des lignes
+			while ((ligne=br.readLine())!=null){
+				c = this.tabr.get(indexCase);	// on sauvegarde l'indice de la case
+				interArbre = ligne.split(";");
+				arbre = interArbre[1];
+				valArbre = arbre.split(":");
+				maxBorne = valArbre.length -1;
+				// On parcourt le tableau de l'ABR en partant de la fin puisque c'est un parcours suffixe
+				for (int i = maxBorne ; i >= 0; i--){
+					if(Integer.parseInt(valArbre[i]) >= c.getDebut() && Integer.parseInt(valArbre[i]) <= c.getFin())
+						c.getAbr().insere(Integer.parseInt(valArbre[i]));
+				}
+				indexCase++;
+			}
+			br.close();
+			
+		} catch (Exception e){
+			System.out.println(e.toString());
+		}
+		
+		return "TABR construit avec le fichier " + file;
+	}
+	
+	/**
+	 * 2.1.2 : abrFichier permet d'ecrire le TABR dans un fichier
+	 * @param file chemin + nom du fichier a ecrire
+	 */
+	public String ABRversFichier(String file){
+		try{
+			OutputStream ops=new FileOutputStream(file); 
+			OutputStreamWriter opsw=new OutputStreamWriter(ops);
+			String ligne = "";
+			
+			for(int i = 0 ; i < this.tabr.size() ; i++) {
+				
+				ligne = String.format(ligneFichier(i) + "%s",System.getProperty("line.separator"));
+				opsw.write(ligne);
+				opsw.flush();
+			}
+		} catch (Exception e){
+			System.out.println(e.toString());
+		}
+		
+		return "Fichier sauvegarde dans " + file;
+	}
+	
+	/**
+	 * 2.1.3 : affichage permet d'afficher a l'ecran tous les ABR contenus dans le TABR
+	 */
+	public String affichage(){
+		String result = "";
+		for(int i = 0 ; i < this.tabr.size() ; i++) {
+			result += ligneFichier(i) + "\n";
+		}
+		return result;
+	}
+	
+	/**
+	 * Renvoit l'equivalent d'une ligne de fichier de l'ABR i
+	 * @param i indice de l'ABR dans le TABR
+	 * @return
+	 */
+	private String ligneFichier(int i){
+		String intervalle = "";	// Intervalle [debut ; fin]
+		String abr = "";		// Contenu de l'ABR
+		
+		intervalle = this.tabr.get(i).getDebut() + ":" + this.tabr.get(i).getFin();
+		abr = this.tabr.get(i).getAbr().parcoursSuffixe();
+		
+		return intervalle + ";" + abr;
+	}
+
+	public ArrayList<Case> getTabr() {
+		return tabr;
+	}
+
+	public void setTabr(ArrayList<Case> tabr) {
+		this.tabr = tabr;
+	}
+	
+	public boolean estVide() {
+		if(tabr.isEmpty())
+			return true;
+		else
+			return false;
+	}
+	
+public TabABR generateRandomTABR(int n, int m) {
+		
+		TabABR tabalea = new TabABR();	// TABR aleatoire
+		ArbreBinaireRecherche abralea = new ArbreBinaireRecherche(); // ABR aleatoire
+		
+		Case c;
+		int min = 1;					// Intervalle minimal du TABR
+		int max = m;					// Intervalle maximal du TABR
+		int min_case = 0;				// Intervalle minimal de la case
+		int max_case = 1;				// Intervalle maximal de la case
+		int taille_interv_tabr;			// Taille de l'intervalle des cases du TABR
+		int taille_interv_case = 0;		// Taille de l'intervalle de la case
+		int min_interv;					// Définition de l'intervalle minimal de la case
+		int max_interv;					// Définition de l'intervalle maximal de la case
+		
+		taille_interv_tabr = (int) Math.ceil((double)m/(double)n);
+		
+//		System.out.println("Nombre de cases à générer : " + n + " ; " + "Intervalle max : " +m);
+//		System.out.println("Taille des intervalles à générer : " +taille_interv_tabr);
+		
+		min_interv = min;
+		max_interv = taille_interv_tabr;
+		
+		for(int i = 0 ; i < n ; i++) {
+			
+			min_case = (int)(Math.random() * (max_interv-min_interv)) + min_interv;
+			max_case = (int)(Math.random() * (max_interv-min_interv)) + min_interv;
+			
+			while(min_case > max_case || max_case < min_case || max_case - min_case < 3 || max_case - min_case > taille_interv_tabr || max_case > max || i >= n) {
+				min_case = (int)(Math.random() * (max_interv-min_interv)) + min_interv;
+				max_case = (int)(Math.random() * (max_interv-min_interv)) + min_interv;
+			}
+			
+			if(i == 0)
+				min_case = 1;
+			
+			if(i == n-1)
+				max_case = m;
+			
+			System.out.println("Iteration : " +i);
+			System.out.println("[min_case] : " +min_case+ " [max_case] : "+max_case + " // ");
+			
+			taille_interv_case = max_case - min_case;
+					
+			c = new Case(min_case, max_case);
+			tabalea.getTabr().add(c);
+			
+			abralea = generateRandomABR(min_case, max_case, taille_interv_case);
+			
+			c.setAbr(abralea);
+			
+			min_interv = max_case;
+			max_interv += taille_interv_tabr;
+		}
+		
+		return tabalea;
+	}
+	
+	public ArbreBinaireRecherche generateRandomABR(int min_abr, int max_abr, int taille_intervalle_abr) {
+		int nb_elements;
+		int min_nb_elements = 3;
+		int valeur;
+		int valeur_precedente = 0;
+		
+		ArbreBinaireRecherche abralea = new ArbreBinaireRecherche(); // ABR aleatoire
+		nb_elements = (int)(Math.random() * (taille_intervalle_abr-min_nb_elements)) + min_nb_elements;
+
+		for(int i = 0 ; i < nb_elements ; i++) {
+			valeur = (int)(Math.random() * (max_abr-min_abr)) + min_abr;
+			
+			while(valeur < min_abr || valeur > max_abr || valeur == valeur_precedente || i >= nb_elements || abralea.existe(valeur, abralea.getRacine())) {
+				valeur = (int)(Math.random() * (max_abr-min_abr)) + min_abr;
+			}
+			valeur_precedente = valeur;
+//			System.out.println(valeur);	
+			abralea.insere(valeur);
+		}
+		return abralea;
+	}
+	
+	/**
+	 * 2.1.5 verificationCriteres permet de controler le TABR s'il est bien conforme aux criteres fourni
+	 * @return message de retour
+	 */
+	public String verificationCriteres() {
+		String result = "";
+		String[] valTab;
+		ArrayList<Integer> valeurs = new ArrayList<Integer>(); 
+		Case c,c2;
+		boolean verifOk = true;
+		
+		// Verification de l'ordre croissant des intervalles (et qu'ils ne soient pas negatifs)
+		for (int i = 0 ; i < this.getTabr().size() ; i++){
+			c = this.getTabr().get(i);
+			if (c.getDebut() < 0 || c.getFin() < 0){
+				result += "Les intervalles contiennent des valeurs negatives pour l'indice " + i + "\n";
+				verifOk = false;
+			}
+			if (c.getDebut() > c.getFin()){
+				result += "Le critere T[i].debut <= T[i].fin n'est pas respecte pour l'indice " + i + " (" + c.getDebut() + ":" + c.getFin() + ")\n";
+				verifOk = false;
+			}
+		}
+		if (verifOk) result += "Le critere de definition est respecte\n";
+		verifOk = true;
+		
+		// Verification de la disjoincture des elements
+		for (int i = 0 ; i < this.getTabr().size() ; i++){
+			c = this.getTabr().get(i);
+			valTab = c.getAbr().parcoursSuffixe().split(":");
+			
+			for(String v : valTab){
+				if(valeurs.indexOf(Integer.parseInt(v)) != -1){
+					result += "La valeur " + v + " est deja contenue dans un ABR precedent a celui-ci (" + i + ")\n";
+					verifOk = false;
+				}
+			}				
+			for(String v : valTab)
+				valeurs.add(Integer.parseInt(v));
+		}
+		if (verifOk) result += "Le critere de disjoincture est respecte\n";
+		verifOk = true;
+		
+		// Verification de l'ordonnancement des intervalles
+		for (int i = 0 ; i < (this.getTabr().size()-1) ; i++){
+			c = this.getTabr().get(i);
+			c2 = this.getTabr().get(i+1);
+			if (c.getFin() >= c2.getDebut()){
+				result += "L'attribut fin de l'intervalle " + i + " (" + c.getFin() + ") est plus grand que l'attribut debut de l'intevalle suivant (" + c2.getDebut() + ")\n";
+				verifOk = false;
+			}
+		}
+		if (verifOk) result += "Le critere d'ordonnancement est respecte\n";
+		verifOk = true;
+		
+		// Verification que les elements soient bien compris dans leur intervalle
+		for (int i = 0 ; i < (this.getTabr().size()) ; i++){
+			c = this.getTabr().get(i);
+			if (c.getAbr().getMin() < c.getDebut()){
+				result += "Au moins un element (" + c.getAbr().getMin() + ") dans l'ABR " + i + " est plus petit que l'attribut debut (" + c.getDebut() + ")\n";
+				verifOk = false;
+			}
+			if (c.getAbr().getMax() > c.getFin()){
+				result += "Au moins un element (" + c.getAbr().getMax() + ") dans l'ABR " + i + " est plus grand que l'attribut fin (" + c.getFin() + ")\n";
+				verifOk = false;
+			}	
+		}
+		if (verifOk) result += "Le critere d'appartenance a l'intervalle est respecte\n";
+		verifOk = true;
+		
+		return result;
+	}
+	
+	/**
+	 * 2.2.1 : insertTABR insere l'element x dans le TABR si il correspond a l'intervalle
+	 * si l'insertion est invalide un message d'erreur est renvoye
+	 * @param x valeur a inserer dans le TABR
+	 * @return message de retour
+	 */
+	public String insertTABR(int x){
+		String result = "";						// message de retour
+		ArbreBinaireRecherche abr;				// instance ABR du TABR
+		int indice = this.appartientTABR(x);	// indice de l'ABR dans le TABR
+
+		// Si l'element n'appartient pas aux intervalles du TABR on l'indique a l'utilisateur
+		if(indice == -1){
+			result = "/// L'element " + x + " n'est pas compris dans les intervalles du TABR - echec de l'insertion";
+		} else {
+			abr = this.tabr.get(indice).getAbr();
+			// Si l'element existe deja dans le tableau ==> message d'erreur
+			if (abr.existe(x, abr.getRacine())){
+				result = "/// L'element " + x + " existe deja dans le tableau";
+			// Sinon, on l'ajoute dans son ABR
+			} else {
+				abr.insere(x);
+				result = "/// L'element " + x + " a ete insere dans le tableau : \n\n";
+				result += affichage();
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * 2.2.2 : supprTABR supprime l'element x dans le TABR si il correspond a l'intervalle
+	 * si la suppression est invalide un message d'erreur est renvoye
+	 * @param x valeur a inserer dans le TABR
+	 * @return message de retour
+	 */
+	public String supprTABR(int x){
+		String result = "";						// message de retour
+		ArbreBinaireRecherche abr;				// instance ABR du TABR
+		int indice = this.appartientTABR(x);	// indice de l'ABR dans le TABR
+		
+		// Si l'element n'appartient pas aux intervalles du TABR on l'indique a l'utilisateur
+		if(indice == -1){
+			result = "/// L'element "+ x + " n'est pas compris dans les intervalles du TABR - echec de la suppression";
+		} else {
+			abr = this.tabr.get(indice).getAbr();
+			// Si l'element n'existe pas dans le tableau ==> message d'erreur
+			if (!abr.existe(x, abr.getRacine())){
+				result = "/// L'element " + x + " n'existe pas dans le tableau";
+			// Sinon, on le supprime de son ABR
+			} else {
+				abr.supprime(x);
+				result = "/// L'element " + x + " a ete supprime du tableau : \n\n";
+				result += affichage();
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * Fonction privee permettant de verifier si un element appartient a un TABR
+	 * @param x element a verifier
+	 * @return indice de l'intervalle auquel appartient l'element (-1 s'il n'existe pas)
+	 */
+	private int appartientTABR(int x){
+		int borne = this.tabr.size();	// borne de parcours du TABR 
+		int i = 0;						// variable d'incrementation
+		
+		// Si x n'appartient pas a [T[0].debut ; T[n].fin] on renvoit directement -1 
+		if (this.tabr.get(0).getDebut() > x || this.tabr.get((borne - 1)).getFin() < x){
+			return -1;
+		} else {
+			// Parcours du TABR
+			while (i < borne){
+				// Si l'intervalle est trouve, on renvoit son indice dans le TABR
+				if(this.tabr.get(i).getDebut() <= x && this.tabr.get(i).getFin() >= x)
+					return i;
+				i++;
+			}
+			// Sinon on renvoit -1
+			return -1;
+		}
+	}
+	
+	/**
+	 * 2.2.3 : fusionCase fusionne la case i avec la case i+1
+	 * @param indice represente l'indice de la case a fusionner, qui est strictement inferieur a n
+	 * @return message de retour
+	 */
+	public String fusionCase(int indice){
+		String result = "";
+		Case c, cNext;
+		ArbreBinaireRecherche abr;
+		if (indice > (this.tabr.size()-1) || indice < 0){
+			result = "/// L'indice " + indice + " n'appartient aux bornes du TABR";
+		} else if(indice == (this.tabr.size()-1)){
+			result = "/// Vous ne pouvez pas fusionner la derniere case (pas de case suivante)";
+		} else {
+			c = this.tabr.get(indice);
+			cNext = this.tabr.get(indice+1);
+			c.setFin(cNext.getFin());
+			abr = c.getAbr();
+			abr.MaxSad(abr.getRacine()).setNd(cNext.getAbr().getRacine());
+			for (int i = (indice+1) ; i < (this.tabr.size()-1) ; i++) {
+				this.tabr.set(i, this.tabr.get(i+1));
+			}
+			this.tabr.remove((this.tabr.size()-1));
+			int indice_suiv = indice + 1;
+			result = "/// Les cases "+ indice +" et "+ indice_suiv +" ont bien �t� fusionn�es !\n\n";
+			result += this.affichage();
+		}
+		
+		return result;
+	}
+	
+	/**
+	 * 2.2.4 estEquilibreProf est une fonction permettant de tester si l'arbre est equilibre en profondeur
+	 * @param indice : indice dans le TABR
+	 * @return
+	 */
+	public String estEquilibreProf(int indice){
+		String result = "";
+		ArrayList<Integer> eq = new ArrayList<Integer>() {{add(-1);add(0);add(1);}};
+		Boolean equilib = true;
+		ArbreBinaireRecherche abr;
+		int profSag, profSad;
+		
+		// Verification que l'indice appartient au TABR
+		if (indice >= this.tabr.size() || indice < 0){
+			result = "/// L'indice " + indice + " ne fait pas partie de l'intervalle de TABR";
+		} else {
+			// On teste d'abord la profondeur de la racine
+			abr = this.tabr.get(indice).getAbr();
+			profSag = abr.getRacine().profondeur(true);
+			profSad = abr.getRacine().profondeur(false);
+			if (eq.indexOf(profSag - profSad) == -1){
+				result = "/// L'arbre, stocke a l'indice " + indice + ", n'est pas equilibre pour le noeud : " + abr.getRacine().getValeur() + " ; profondeur du sag : " + profSag + " ; profondeur du sad : " + profSad + "\n deseq(" + abr.getRacine().getValeur() + ") = (" + profSag + ") - (" + profSad + ") = " + (profSag - profSad);
+			// Et si a la racine il est equilibre, on teste les noeuds d'en dessous
+			} else {
+				if (abr.getRacine().getNg() != null){
+					result = testEquilibreRecursif(abr.getRacine().getNg());
+					if (result == ""){
+						if (abr.getRacine().getNd() != null){
+							result = testEquilibreRecursif(abr.getRacine().getNd());
+						}
+					}
+				} else {
+					result = testEquilibreRecursif(abr.getRacine().getNd());
+				}
+			}
+		}
+		if (result == "")
+			result = "/// L'arbre, stocke a l'indice " + indice + ", est equilibre";
+		
+		return result;
+	}
+	
+	/**
+	 * Fonction interne permettant de tester l'equilibre des autres noeuds de l'arbre
+	 * @param nb noeud en cours d'analyse
+	 * @return message de retour
+	 */
+	private String testEquilibreRecursif(NoeudBinaire nb){
+		String result = "";
+		ArrayList<Integer> eq = new ArrayList<Integer>() {{add(-1);add(0);add(1);}};
+		int profSag, profSad;
+		
+		// Si le noeud est null, la chaine renvoye est vide
+		if(nb == null){
+			result = "";
+		} else {
+			// Recuperation des profondeurs du fils gauche et du fils droit
+			profSag = nb.profondeur(true);
+			profSad = nb.profondeur(false);
+			// Si le noeud n'est pas equilibre, alors on indique le detail du desequilibrage du noeud
+			if (eq.indexOf(profSag - profSad) == -1){
+				result = "L'arbre n'est pas equilibre pour le noeud : " + nb.getValeur() + " ; profondeur du sag : " + profSag + " ; profondeur du sad : " + profSad;
+			// Sinon, on va tester les fils du noeud en cours (s'ils existent)
+			} else {
+				if(nb.getNg() != null){
+					result = testEquilibreRecursif(nb.getNg());
+					if(nb.getNd() != null && result == ""){
+						result = testEquilibreRecursif(nb.getNd());
+					} else {
+						result = "";
+					}
+				} else {
+					if(nb.getNd() != null){
+						result = testEquilibreRecursif(nb.getNd());
+					} else {
+						result = "";
+					}
+				}
+			}
+		}
+		return result;
+	}
+	
+	/**
+	 * 2.2.5 ABRversTABR permet de construire entierement un TABR en recuperant un ABR et un intervalle de bornes superieures
+	 * @param abr ABR a decomposer
+	 * @param maxIntervalle tableau contenant les "fin" des cases du TABR
+	 * @return message de retour
+	 */
+	public String ABRversTABR(ArbreBinaireRecherche abr, ArrayList<Integer> maxIntervalle){
+		String result = "";
+		int val,i,maxBorne;
+		int min = abr.getMin();
+		int max = abr.getMax();
+		String valeurs[];
+		Case c;
+			
+		// Premiere phase : analyse et correction du tableau des b
+		Collections.sort(maxIntervalle);
+		i = 0;
+		while (i < maxIntervalle.size()){
+			val = maxIntervalle.get(i);
+			if (val <= min || val >= max){
+				maxIntervalle.remove(i);
+				i = (i <= 0) ? 0 : i-1;
+			} else {
+				i++;
+			}
+		}
+		// Puis ajout de la borne fin (valeur max de l'ABR)
+		maxIntervalle.add(max);
+		
+		// Ensuite on cree les intervalles pour les differentes cases du TABR
+		for (int borneSup : maxIntervalle){
+			c = new Case(min, borneSup);
+			this.tabr.add(c);
+			min = borneSup + 1;
+		}		
+		
+		// Puis on ajoute les elements (pris par un parcours suffixe) dans le TABR
+		valeurs = abr.parcoursSuffixe().split(":");
+		maxBorne = valeurs.length - 1;
+		// On parcourt le tableau de l'ABR en partant de la fin puisque c'est un parcours suffixe
+		for (i = maxBorne ; i >= 0; i--) {
+			this.insertTABR(Integer.parseInt(valeurs[i]));
+		}
+		
+		result = this.affichage();
+		
+		return result;
+	}
+	
+	/**
+	 * 2.2.6 TABRversABR permet de construire un ABR en recoltant tous les ABR du TABR
+	 * dans un souci de pseudo-equilibre, il est construit en prenant l'ABR contenu au milieu du TABR 
+	 * @return message de retour
+	 */
+	public String TABRversABR(){
+		String result = "";
+		int indice,maxBorne;
+		String valeurs[];
+		ArbreBinaireRecherche abr = new ArbreBinaireRecherche();
+		
+		indice = (int) Math.ceil(this.getTabr().size() / 2);
+		if(indice<0) indice = 0;
+		
+		// Recuperation des valeurs, estimees au milieu de TABR[1].debut et TABR[n].fin 
+		valeurs = this.getTabr().get(indice).getAbr().parcoursSuffixe().split(":");
+		maxBorne = valeurs.length - 1;
+		// On parcourt le tableau de l'ABR en partant de la fin puisque c'est un parcours suffixe
+		for (int i = maxBorne ; i >= 0; i--) {
+			abr.insere(Integer.parseInt(valeurs[i]));
+		}
+		
+		for (int j = 0 ; j < indice ; j++) {
+			valeurs = this.getTabr().get(j).getAbr().parcoursSuffixe().split(":");
+			maxBorne = valeurs.length - 1;
+			for (int i = maxBorne ; i >= 0; i--) {
+				abr.insere(Integer.parseInt(valeurs[i]));
+			}
+		}
+		
+		for (int j = (indice+1) ; j < this.getTabr().size() ; j++) {
+			valeurs = this.getTabr().get(j).getAbr().parcoursSuffixe().split(":");
+			maxBorne = valeurs.length - 1;
+			for (int i = maxBorne ; i >= 0; i--) {
+				abr.insere(Integer.parseInt(valeurs[i]));
+			}
+		}
+		
+		result = abr.parcoursSuffixe();
+		return result;
+	}
+}

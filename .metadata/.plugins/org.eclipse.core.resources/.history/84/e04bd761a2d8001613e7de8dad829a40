@@ -1,0 +1,801 @@
+package proj;
+
+import java.awt.Color;
+import java.awt.Container;
+import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
+
+import javax.swing.BorderFactory;
+import javax.swing.GroupLayout;
+import javax.swing.JButton;
+import javax.swing.JFileChooser;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTabbedPane;
+import javax.swing.JTextArea;
+import javax.swing.JToolBar;
+import javax.swing.SwingConstants;
+import javax.swing.border.Border;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
+public class Application extends JFrame implements ActionListener, MouseListener {
+	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
+	// Boutons partie generation/sauvegarde/affichage
+	private JButton file_tabr;
+	private JButton tabr_file;
+	private JButton displayTabr;
+	private JButton generateTabr;
+	private JButton checkTabr;
+	
+	// Boutons partie manipulation
+	private JButton addElement;
+	private JButton deleteElement;
+	private JButton mergeBoxes;
+	private JButton balanceDeep;
+	private JButton abr_tabr;
+	private JButton tabr_abr;
+	
+	private JButton clearDisplayArea;
+	private JButton deleteTabr;
+	
+	// Labels partie generation/sauvegarde/affichage
+	private JLabel l_file_tabr = new JLabel("Generer un tableau d'ABR a partir d'un fichier");
+	private JLabel l_tabr_file = new JLabel("Generer un fichier a partir d'un tableau d'ABR");
+	private JLabel l_displayTabr = new JLabel("Afficher le tableau d'ABR");
+	private JLabel l_generateTabr = new JLabel("Generer un tableau d'ABR aleatoirement");
+	private JLabel l_checkTabr = new JLabel("Verifier le bon remplissage du tableau d'ABR");
+	private JLabel l_clearDisplayArea = new JLabel("Effacer la zone de texte");
+	private JLabel l_deleteTabr = new JLabel("Supprimer le TABR effectif");
+	private JLabel l_file = new JLabel("Aucun fichier importe");
+	private JLabel l_file_gen = new JLabel("Aucun fichier genere");
+	
+	// Labels partie manipulation
+	private JLabel l_addElement = new JLabel("Ajouter un element au tableau d'ABR");
+	private JLabel l_deleteElement = new JLabel("Supprimer un element du tableau d'ABR");
+	private JLabel l_mergeBoxes = new JLabel("Fusionner deux cases du tableau d'ABR");
+	private JLabel l_balanceDeep = new JLabel("Verifier l'equilibre en profondeur d'un ABR");
+	private JLabel l_abr_tabr = new JLabel("Generer un tableau d'ABR a partir d'un ABR");
+	private JLabel l_tabr_abr = new JLabel("Generer un ABR a partir d'un tableau d'ABR");
+	
+	private JLabel l_credits = new JLabel("<html><center>Realise par Tanguy HELBERT & Vincent CHESNEAU - M1 MIAGE ALTERNANCE NANTES 2017"
+			+ "<br> Module de complements algorithmiques</center></html>");
+	
+	private JTextArea displayArea;
+	
+	private String bufferDisplayArea = "";
+	
+	public File file = null;
+	
+	private TabABR listeABR = new TabABR();
+
+	public Application() {
+		
+		super("Gestionnaire de Tableau d'Arbres Binaires de Recherche");
+		setSize(800, 750);
+		setResizable(false);
+		setLocationRelativeTo(null);
+		
+		JToolBar toolbar_app = new JToolBar();
+		JToolBar toolbar_tabr_general = new JToolBar();
+		JToolBar toolbar_tabr_management = new JToolBar();
+		
+		toolbar_app.setFloatable(false);
+		toolbar_tabr_general.setFloatable(false);
+		toolbar_tabr_management.setFloatable(false);
+		
+		toolbar_tabr_general.setPreferredSize(new Dimension(10, 10));
+		toolbar_tabr_management.setPreferredSize(new Dimension(10, 10));
+		
+		JTabbedPane onglets = new JTabbedPane(SwingConstants.TOP);
+		onglets.addTab("Generation/Sauvegarde/Affichage", toolbar_tabr_general);
+		onglets.addTab("Manipulation du TABR et des ABR", toolbar_tabr_management);
+		
+		Border border_file = BorderFactory.createTitledBorder("Fichier utilise ");
+		Border border_file_gen = BorderFactory.createTitledBorder("Fichier genere ");
+		Border border_tips = BorderFactory.createTitledBorder("Action");
+		
+		this.file_tabr = new JButton("Fichier > TABR");
+		this.tabr_file = new JButton("TABR > Fichier");
+		this.displayTabr = new JButton("Afficher le TABR");
+		this.generateTabr = new JButton("Generer aleatoirement le TABR");
+		this.checkTabr = new JButton("Verifier TABR");
+
+		this.addElement = new JButton("Ajouter element");
+		this.deleteElement = new JButton("Supprimer element");
+		this.mergeBoxes = new JButton("Fusionner 2 cases");
+		this.balanceDeep = new JButton("Verifier equilibre en prof.");
+		this.abr_tabr = new JButton("ABR > TABR");
+		this.tabr_abr = new JButton("TABR > ABR");
+		this.clearDisplayArea = new JButton("Effacer la zone de texte");
+		this.deleteTabr = new JButton("Supprimer le TABR");
+		
+		this.l_file.setBorder(border_file);
+		this.l_file_gen.setBorder(border_file_gen);
+		
+		this.l_file_tabr.setBorder(border_tips);
+		this.l_tabr_file.setBorder(border_tips);
+		this.l_displayTabr.setBorder(border_tips);
+		this.l_generateTabr.setBorder(border_tips);
+		this.l_checkTabr.setBorder(border_tips);
+		this.l_clearDisplayArea.setBorder(border_tips);
+		this.l_deleteTabr.setBorder(border_tips);
+		
+		this.l_addElement.setBorder(border_tips);
+		this.l_deleteElement.setBorder(border_tips);
+		this.l_mergeBoxes.setBorder(border_tips);
+		this.l_balanceDeep.setBorder(border_tips);
+		this.l_abr_tabr.setBorder(border_tips);
+		this.l_tabr_abr.setBorder(border_tips);
+		
+		this.clearDisplayArea.setForeground(new Color(232,47,26));
+		this.deleteTabr.setForeground(new Color(232,47,26));
+		
+		toolbar_app.add(this.l_file);
+		toolbar_app.add(this.l_file_gen);
+
+		toolbar_tabr_general.add(this.file_tabr);
+		toolbar_tabr_general.add(this.tabr_file);
+		toolbar_tabr_general.add(this.displayTabr);
+		toolbar_tabr_general.add(this.generateTabr);
+		toolbar_tabr_general.add(this.checkTabr);
+		toolbar_tabr_general.add(this.clearDisplayArea);
+		
+		toolbar_app.add(this.l_file_tabr);
+		toolbar_app.add(this.l_tabr_file);
+		toolbar_app.add(this.l_displayTabr);
+		toolbar_app.add(this.l_generateTabr);
+		toolbar_app.add(this.l_checkTabr);
+		toolbar_app.add(this.l_clearDisplayArea);
+		
+		toolbar_tabr_management.add(this.addElement);
+		toolbar_tabr_management.add(this.deleteElement);
+		toolbar_tabr_management.add(this.mergeBoxes);
+		toolbar_tabr_management.add(this.balanceDeep);
+		toolbar_tabr_management.add(this.abr_tabr);
+		toolbar_tabr_management.add(this.tabr_abr);
+		toolbar_tabr_management.add(this.deleteTabr);
+		
+		toolbar_app.add(this.l_addElement);
+		toolbar_app.add(this.l_deleteElement);
+		toolbar_app.add(this.l_mergeBoxes);
+		toolbar_app.add(this.l_balanceDeep);
+		toolbar_app.add(this.l_abr_tabr);
+		toolbar_app.add(this.l_tabr_abr);
+		toolbar_app.add(this.l_deleteTabr);
+		
+		this.l_file_tabr.setVisible(false);
+		this.l_tabr_file.setVisible(false);
+		this.l_displayTabr.setVisible(false);
+		this.l_generateTabr.setVisible(false);
+		this.l_checkTabr.setVisible(false);
+		this.l_file.setVisible(true);
+		this.l_clearDisplayArea.setVisible(false);
+		this.l_deleteTabr.setVisible(false);
+		
+		this.l_addElement.setVisible(false);
+		this.l_deleteElement.setVisible(false);
+		this.l_mergeBoxes.setVisible(false);
+		this.l_balanceDeep.setVisible(false);
+		this.l_abr_tabr.setVisible(false);
+		this.l_tabr_abr.setVisible(false);
+
+		this.displayArea = new JTextArea(34, 70);
+		this.displayArea.setEditable(false);
+		
+		JScrollPane scrollPanel = new JScrollPane(this.displayArea);
+		scrollPanel.setHorizontalScrollBarPolicy(JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+		
+		JPanel centerPanel = new JPanel();
+		centerPanel.add(scrollPanel);
+		
+		JPanel southPanel = new JPanel();
+		southPanel.add(l_credits);
+
+		Container cont = getContentPane();
+		cont.add(onglets, "North");
+		cont.add(centerPanel, "Center");
+		cont.add(southPanel, "South");
+		
+        GroupLayout gl = new GroupLayout(cont);
+        cont.setLayout(gl);
+
+        gl.setHorizontalGroup(gl.createParallelGroup()
+                .addComponent(toolbar_app, GroupLayout.DEFAULT_SIZE,
+                        GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(onglets, GroupLayout.DEFAULT_SIZE,
+                        GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(centerPanel, GroupLayout.DEFAULT_SIZE,
+                        GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(southPanel, GroupLayout.DEFAULT_SIZE,
+                        GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+        );
+
+        gl.setVerticalGroup(gl.createSequentialGroup()
+                .addComponent(toolbar_app)
+                .addComponent(onglets)
+                .addComponent(centerPanel)
+                .addComponent(southPanel)
+        );
+		
+		this.file_tabr.addMouseListener(this);
+		this.tabr_file.addMouseListener(this);
+		this.displayTabr.addMouseListener(this);
+		this.generateTabr.addMouseListener(this);
+		this.checkTabr.addMouseListener(this);
+		this.clearDisplayArea.addMouseListener(this);
+		
+		this.addElement.addMouseListener(this);
+		this.deleteElement.addMouseListener(this);
+		this.mergeBoxes.addMouseListener(this);
+		this.balanceDeep.addMouseListener(this);
+		this.abr_tabr.addMouseListener(this);
+		this.tabr_abr.addMouseListener(this);
+		this.deleteTabr.addMouseListener(this);
+		
+		this.addWindowListener(new WindowAdapter()
+		{
+			public void windowClosing(WindowEvent arg0)
+			{
+				Application.this.saveData();
+				System.exit(0);
+			}
+		});
+		
+		this.file_tabr.addActionListener(this);
+		this.tabr_file.addActionListener(this);
+		this.displayTabr.addActionListener(this);
+		this.generateTabr.addActionListener(this);
+		this.checkTabr.addActionListener(this);
+		this.addElement.addActionListener(this);
+		this.deleteElement.addActionListener(this);
+		this.mergeBoxes.addActionListener(this);
+		this.balanceDeep.addActionListener(this);
+		this.abr_tabr.addActionListener(this);
+		this.tabr_abr.addActionListener(this);
+		this.clearDisplayArea.addActionListener(this);
+		this.deleteTabr.addActionListener(this);
+
+		setVisible(true);
+	}
+	
+	public static void main(String[] args) {
+		new Application();
+	}
+
+	public void saveData() {
+		File f = new File("save.data");
+		ObjectOutputStream out = null;
+		try
+		{
+			out = new ObjectOutputStream(new FileOutputStream(f));
+//			out.writeObject(this.listeEtu);
+			out.close();
+			System.out.println("Donnees sauvegardees");
+		}
+		catch (FileNotFoundException e)
+		{
+			e.printStackTrace();
+		}
+		catch (IOException e)
+		{
+			e.printStackTrace();
+		}
+	}
+	
+	private void displayTextArea(String text) {
+		
+		bufferDisplayArea += "\n\n" + text;
+		
+		displayArea.setText(bufferDisplayArea);
+	}
+	
+	private void clearDisplayArea() {
+		
+		if(bufferDisplayArea.isEmpty()) {
+			
+			JOptionPane.showMessageDialog(this, "La zone de texte est deje vide.");
+		
+		} else {
+			
+			int reponse = JOptionPane.showConfirmDialog(this, "Etes-vous sur de tout effacer ? ");
+			if (reponse != 0) {
+				return;
+			}
+			bufferDisplayArea = "";
+			this.displayArea.setText(bufferDisplayArea);
+		}
+	}
+	
+	public void deleteTabr() {
+		if(listeABR.estVide()) {
+			JOptionPane.showMessageDialog(this, "Erreur, le tableau d'ABR est deje vide.");
+		} else {
+			
+			int reponse = JOptionPane.showConfirmDialog(this, "Etes-vous sur d'effacer le TABR ? ");
+			if (reponse != 0) {
+				return;
+			}
+			
+			listeABR = new TabABR();;
+			
+			bufferDisplayArea = "";
+			this.displayArea.setText(bufferDisplayArea);
+			
+			JOptionPane.showMessageDialog(this, "TABR supprime avec succes !"); 
+			
+			l_file.setText("Aucun fichier importe");
+			l_file_gen.setText("Aucun fichier genere");
+			
+			repaint();
+		}
+	}
+	
+	
+	public void loadFile() throws IOException {
+
+		JFileChooser dialog = new JFileChooser(new File("."));
+		dialog.setFileFilter(new FileNameExtensionFilter("files texte simple (*.txt,*.TXT)","txt","TXT"));
+
+		if(this.file != null)
+			dialog.setSelectedFile(this.file);
+
+		if (dialog.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
+			this.file = dialog.getSelectedFile();
+			
+			JOptionPane.showMessageDialog(this, "Fichier recupere avec succes !"); 
+
+			this.l_file.setText("Fichier utilise : "+ file.getName());
+
+			this.repaint();
+			
+			listeABR.fichierVersTABR(file.getPath());
+			displayTextArea("/// Fichier importe avec succes !");
+			displayTextArea("Contenu du tableau d'ABR : \n\n" +listeABR.affichage());
+		}
+		else {
+			JOptionPane.showMessageDialog(this, "Recuperation du fichier annulee."); 
+		}
+	}
+	
+	public void saveFile() throws IOException {
+		
+		if(listeABR.estVide()) {
+			JOptionPane.showMessageDialog(this, "Exportation impossible, le tableau d'ABR est vide.");
+		}else {
+		
+			String fileName = JOptionPane.showInputDialog(this, "Merci de rentrer le nom du fichier de sortie a generer :");
+			
+			if (fileName != null){ 
+				
+				File file = new File("txt/"+fileName+".txt");
+				file.createNewFile();
+				
+				listeABR.ABRversFichier(file.getPath());
+				
+				this.l_file_gen.setText("Fichier disponible a partir du dossier projet : "+ file.getPath());
+				
+				this.repaint();
+				
+				displayTextArea("/// Fichier texte genere avec succes !");
+				displayTextArea("Celui-ci est disponible dans le repertoire suivant : \n\n" +file.getAbsolutePath());
+			}
+		}
+	}
+	
+	public void displayTABR() {
+		
+		if(listeABR.estVide()) {
+			JOptionPane.showMessageDialog(this, "Erreur, le tableau d'ABR est vide.");
+		}else {
+			displayTextArea("Contenu du tableau d'ABR : \n\n" +listeABR.affichage());
+		}
+	}
+	
+	public void generateRandomlyTABR() {
+		
+		int nbBoxes = 0;
+		int max = 0;
+		boolean critereMax = false;
+		String choix_utilisateur = "";
+		
+		while(true)
+		{
+			choix_utilisateur = JOptionPane.showInputDialog(this, "Combien de cases doit comporter le TABR ?");
+			
+		    if(choix_utilisateur == "") 
+		    	JOptionPane.showMessageDialog(this, "Erreur. Merci de saisir un nombre");
+		    try {
+		    	nbBoxes = Integer.parseInt(choix_utilisateur);
+		        break;
+		    } catch(NumberFormatException ex)
+		    {
+		    	JOptionPane.showMessageDialog(this, "Erreur. Merci de saisir un nombre");
+		    }
+		}
+		
+		while(!critereMax)
+		{
+			choix_utilisateur = JOptionPane.showInputDialog(this, "Quel est l'intervalle maximum du TABR ?");
+			
+		    if(choix_utilisateur == "") 
+		    	JOptionPane.showMessageDialog(this, "Erreur. Merci de saisir un nombre");
+		    try {
+		    	max = Integer.parseInt(choix_utilisateur);
+			    if((max/nbBoxes) < 5) {
+			    	JOptionPane.showMessageDialog(this, "Erreur. L'intervalle maximum doit etre superieur ou egal a la valeur : " +nbBoxes*5);
+			    }
+			    else {
+			    	critereMax = true;
+			    }
+		    } catch(NumberFormatException ex)
+		    {
+		    	JOptionPane.showMessageDialog(this, "Erreur. Merci de saisir un nombre");
+		    }
+		}
+		
+		displayTextArea(listeABR.generateRandomTABR(nbBoxes, max));
+		
+		displayTextArea(listeABR.affichage());
+	}
+	
+	public void checkTABR() {
+		
+		if(listeABR.estVide()) {
+			JOptionPane.showMessageDialog(this, "Erreur, le tableau d'ABR est vide.");
+		}else {
+			displayTextArea("/// Verification des crie�res sur le Tableau d'ABR...");
+			displayTextArea(listeABR.verificationCriteres());
+		}
+		
+	}
+	
+	public void addElement() {
+		
+		int element = 0;
+		String choix_utilisateur = "";
+		
+		if(listeABR.estVide()) {
+			JOptionPane.showMessageDialog(this, "Erreur, le tableau d'ABR est vide.");
+		} else {
+			while(true)
+			{
+				choix_utilisateur = JOptionPane.showInputDialog(this, "Merci de rentrer la valeur de l'element a ajouter.");
+				
+			    if(choix_utilisateur == "") 
+			    	JOptionPane.showMessageDialog(this, "Erreur. Merci de saisir un nombre");
+			    try {
+			    	element = Integer.parseInt(choix_utilisateur);
+			        break;
+			    } catch(NumberFormatException ex)
+			    {
+			    	JOptionPane.showMessageDialog(this, "Erreur. Merci de saisir un nombre");
+			    }
+			}
+			
+			displayTextArea(listeABR.insertTABR(element));
+		}
+	}
+	
+	public void deleteElement() {
+		
+		int element = 0;
+		String choix_utilisateur = "";
+		
+		if(listeABR.estVide()) {
+			JOptionPane.showMessageDialog(this, "Erreur, le tableau d'ABR est vide.");
+		} else {
+			while(true) {
+				choix_utilisateur = JOptionPane.showInputDialog(this, "Merci de rentrer la valeur de l'element a supprimer.");
+				
+			    if(choix_utilisateur == "") 
+			    	JOptionPane.showMessageDialog(this, "Erreur. Merci de saisir un nombre");
+			    try {
+			    	element = Integer.parseInt(choix_utilisateur);
+			        break;
+			    } catch(NumberFormatException ex)
+			    {
+			    	JOptionPane.showMessageDialog(this, "Erreur. Merci de saisir un nombre");
+			    }
+			}
+			
+			displayTextArea(listeABR.supprTABR(element));
+		}
+	}
+	
+	public void mergeBoxes() {
+		
+		int element = 0;
+		int tailleTabr = 0;
+		String choix_utilisateur = "";
+		
+		if(listeABR.estVide()) {
+			JOptionPane.showMessageDialog(this, "Erreur, le tableau d'ABR est vide.");
+		} else {
+			tailleTabr = listeABR.getTabr().size() - 1;
+			
+			while(true) {
+				choix_utilisateur = JOptionPane.showInputDialog(this, "Merci de rentrer l'indice d'un ABR a fusionner."
+						+"\nLes ABR sont indices de 0 a "+ tailleTabr +".");
+				
+			    if(choix_utilisateur == "") 
+			    	JOptionPane.showMessageDialog(this, "Erreur. Merci de saisir un nombre");
+			    try {
+			    	element = Integer.parseInt(choix_utilisateur);
+			        break;
+			    } catch(NumberFormatException ex)
+			    {
+			    	JOptionPane.showMessageDialog(this, "Erreur. Merci de saisir un nombre");
+			    }
+			}
+			
+			displayTextArea(listeABR.fusionCase(element));
+		}
+		
+	}
+	
+	public void checkProfondeur() {
+		
+		int element = 0;
+		int tailleTabr = 0;
+		String choix_utilisateur = "";
+		
+		if(listeABR.estVide()) {
+			JOptionPane.showMessageDialog(this, "Erreur, le tableau d'ABR est vide.");
+		} else {
+			tailleTabr = listeABR.getTabr().size() - 1;
+			
+			while(true) {
+				choix_utilisateur = JOptionPane.showInputDialog(this, "Merci de rentrer l'indice d'un ABR dont l'equilibre en profondeur est a verifier."
+						+ "\nLes ABR sont indices de 0 a "+ tailleTabr +".");
+			
+			    if(choix_utilisateur == "") 
+			    	JOptionPane.showMessageDialog(this, "Erreur. Merci de saisir un nombre");
+			    try {
+			    	element = Integer.parseInt(choix_utilisateur);
+			        break;
+			    } catch(NumberFormatException ex)
+			    {
+			    	JOptionPane.showMessageDialog(this, "Erreur. Merci de saisir un nombre");
+			    }
+			}
+			
+			displayTextArea(listeABR.estEquilibreProf(element));
+		}
+		
+	}
+	
+	public void AbrTABR() {
+		
+		int element = 0;
+		int intervalle = 0;
+		int indice_elements = 0;
+		int indice_intervalles = 0;
+		String choix_utilisateur = "";
+		boolean ajout_elements_ok = true;
+		boolean ajout_intervalles_ok = true;
+		
+		ArrayList<Integer> maxIntervalles = new ArrayList<>();
+		
+		if(!listeABR.estVide()) {
+			JOptionPane.showMessageDialog(this, "Erreur, un Tableau d'ABR est deja existant, pour realiser cette action, veuillez au prealable effacer le Tableau d'ABR existant.");
+		}else {
+			
+			ArbreBinaireRecherche abr = new ArbreBinaireRecherche(); // ABR aleatoire
+			
+			while(ajout_elements_ok) {
+				while(true) {
+					
+					choix_utilisateur = JOptionPane.showInputDialog(this, "Etape 1 - Construction de l'ABR initial \n\n"
+							+ "Merci de rentrer un element dans l'ABR (nombre entier positif)");
+					
+				    if(choix_utilisateur == "") 
+				    	JOptionPane.showMessageDialog(this, "Erreur. Merci de saisir un nombre");
+				    try {
+				    	element = Integer.parseInt(choix_utilisateur);
+				        break;
+				    } catch(NumberFormatException ex)
+				    {
+				    	JOptionPane.showMessageDialog(this, "Erreur. Merci de saisir un nombre");
+				    }
+				}
+				if(abr.existe(element, abr.getRacine())) {
+					JOptionPane.showMessageDialog(this, "Erreur. L'element "+ element +" existe deja dans l'ABR...");
+				}
+				else {
+					abr.insere(element);
+					indice_elements ++;
+					
+					int reponse = JOptionPane.showConfirmDialog(this, "Element ajoute avec succes ! \n\n"
+							+ "L'ABR comporte actuellement "+indice_elements+" element(s) dans l'ABR.\n"
+							+ "Voulez-vous ajouter un autre element ? ");
+					
+					if (reponse != 0) {
+						ajout_elements_ok = false;
+					}
+				}
+			}
+			
+			while(ajout_intervalles_ok) {
+				
+				while(true) {
+					choix_utilisateur = JOptionPane.showInputDialog(this, "Etape 2 - Definition des intervalles du Tableau d'ABR\n\n"
+							+ "Merci de rentrer le maximum de l'intervalle (nombre entier positif)");
+					
+				    if(choix_utilisateur == "") 
+				    	JOptionPane.showMessageDialog(this, "Erreur. Merci de saisir un nombre");
+				    try {
+				    	intervalle = Integer.parseInt(choix_utilisateur);
+				    	if(intervalle < 0) {
+				    		JOptionPane.showMessageDialog(this, "Erreur. Merci de saisir un nombre positif");
+				    	}
+				        break;
+				    } catch(NumberFormatException ex)
+				    {
+				    	JOptionPane.showMessageDialog(this, "Erreur. Merci de saisir un nombre");
+				    }
+				}
+				if(maxIntervalles.contains(intervalle)) {
+					JOptionPane.showMessageDialog(this, "Erreur. L'intervalle "+ intervalle +" existe deja...");
+				}
+				else {
+					maxIntervalles.add(intervalle);
+					indice_intervalles ++;
+					
+					int reponse = JOptionPane.showConfirmDialog(this, "Intervalle ajoute avec succes ! \n\n"
+							+ "L'ABR comporte actuellement "+indice_intervalles+" intervalle(s) dans l'ABR.\n"
+							+ "Voulez-vous ajouter un autre intervalle ? ");
+					
+					if (reponse != 0) {
+						ajout_intervalles_ok = false;
+					}
+				}
+			}
+			displayTextArea("/// Le Tableau d'ABR, a partir de l'ABR, a ete genere avec succes !");
+			displayTextArea(listeABR.ABRversTABR(abr, maxIntervalles));
+		}
+	}
+	
+	public void TabrABR() {
+		
+		if(listeABR.estVide()) {
+			JOptionPane.showMessageDialog(this, "Erreur, le tableau d'ABR est vide.");
+		}else {
+			displayTextArea("/// L'ABR, a partir du Tableau d'ABR, a ete genere avec succes !");
+			displayTextArea(listeABR.TABRversABR());
+		}
+	}
+
+	public void actionPerformed(ActionEvent e) {
+		Object o = e.getSource();
+		
+		if (o == this.file_tabr) {
+			try {
+				loadFile();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		if (o == this.tabr_file)
+			try {
+				saveFile();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		if (o == this.displayTabr)
+			displayTABR();
+		if (o == this.generateTabr)
+			generateRandomlyTABR();
+		if (o == this.checkTabr)
+			checkTABR();
+		if (o == this.addElement)
+			addElement();
+		if (o == this.deleteElement)
+			deleteElement();
+		if (o == this.mergeBoxes)
+			mergeBoxes();
+		if (o == this.balanceDeep)
+			checkProfondeur();
+		if (o == this.abr_tabr)
+			AbrTABR();
+		if (o == this.tabr_abr)
+			TabrABR();
+		if (o == this.clearDisplayArea)
+			clearDisplayArea();
+		if (o == this.deleteTabr)
+			deleteTabr();
+	}
+		
+	@Override
+	public void mouseEntered(MouseEvent arg0) {
+
+		if(arg0.getSource() == file_tabr)
+			l_file_tabr.setVisible(true);
+		if(arg0.getSource() == tabr_file)
+			l_tabr_file.setVisible(true);
+		if(arg0.getSource() == displayTabr)
+			l_displayTabr.setVisible(true);
+		if(arg0.getSource() == generateTabr)
+			l_generateTabr.setVisible(true);
+		if(arg0.getSource() == checkTabr)
+			l_checkTabr.setVisible(true);
+		if(arg0.getSource() == clearDisplayArea)
+			l_clearDisplayArea.setVisible(true);
+		
+		if(arg0.getSource() == addElement)
+			l_addElement.setVisible(true);
+		if(arg0.getSource() == deleteElement)
+			l_deleteElement.setVisible(true);
+		if(arg0.getSource() == mergeBoxes)
+			l_mergeBoxes.setVisible(true);
+		if(arg0.getSource() == balanceDeep)
+			l_balanceDeep.setVisible(true);
+		if(arg0.getSource() == abr_tabr)
+			l_abr_tabr.setVisible(true);
+		if(arg0.getSource() == tabr_abr)
+			l_tabr_abr.setVisible(true);
+		if(arg0.getSource() == deleteTabr)
+			l_deleteTabr.setVisible(true);
+	}
+
+	@Override
+	public void mouseExited(MouseEvent arg0) {
+
+		if(arg0.getSource() == file_tabr)
+			l_file_tabr.setVisible(false);
+		if(arg0.getSource() == tabr_file)
+			l_tabr_file.setVisible(false);
+		if(arg0.getSource() == displayTabr)
+			l_displayTabr.setVisible(false);
+		if(arg0.getSource() == generateTabr)
+			l_generateTabr.setVisible(false);
+		if(arg0.getSource() == checkTabr)
+			l_checkTabr.setVisible(false);
+		if(arg0.getSource() == clearDisplayArea)
+			l_clearDisplayArea.setVisible(false);
+		
+		if(arg0.getSource() == addElement)
+			l_addElement.setVisible(false);
+		if(arg0.getSource() == deleteElement)
+			l_deleteElement.setVisible(false);
+		if(arg0.getSource() == mergeBoxes)
+			l_mergeBoxes.setVisible(false);
+		if(arg0.getSource() == balanceDeep)
+			l_balanceDeep.setVisible(false);
+		if(arg0.getSource() == abr_tabr)
+			l_abr_tabr.setVisible(false);
+		if(arg0.getSource() == tabr_abr)
+			l_tabr_abr.setVisible(false);
+		if(arg0.getSource() == deleteTabr)
+			l_deleteTabr.setVisible(false);
+	}
+	
+	@Override
+	public void mouseClicked(MouseEvent arg0) {}
+
+	@Override
+	public void mousePressed(MouseEvent arg0) {}
+
+	@Override
+	public void mouseReleased(MouseEvent arg0) {}
+}

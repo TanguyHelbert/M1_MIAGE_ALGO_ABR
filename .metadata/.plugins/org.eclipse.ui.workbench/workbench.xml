@@ -19,6 +19,7 @@
 <coolItem id="group.nav" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.navigate" itemType="typeToolBarContribution" x="232" y="30"/>
 <coolItem id="group.editor" itemType="typeGroupMarker"/>
+<coolItem id="org.eclipse.ui.DefaultTextEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="org.eclipse.jdt.ui.CompilationUnitEditor" itemType="typeToolBarContribution" x="-1" y="-1"/>
 <coolItem id="group.help" itemType="typeGroupMarker"/>
 <coolItem id="org.eclipse.ui.workbench.help" itemType="typeToolBarContribution" x="-1" y="-1"/>
@@ -30,33 +31,43 @@
 <folder appearance="1" expanded="2">
 <presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
 <part id="0"/>
-<part id="1"/>
-<part id="3"/>
 <part id="4"/>
+<part id="1"/>
 <part id="2"/>
+<part id="3"/>
+<part id="5"/>
+<part id="6"/>
 </presentation>
 </folder>
 </info>
 </editorArea>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ArbreBinaireRecherche.java" partName="ArbreBinaireRecherche.java" path="/comptes/E134287P/M1_MIAGE/algo_proj/ARB_Algo/src/proj/ArbreBinaireRecherche.java" title="ArbreBinaireRecherche.java" tooltip="ARB_Algo/src/proj/ArbreBinaireRecherche.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARB_Algo/src/proj/ArbreBinaireRecherche.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1398" selectionTopPixel="611"/>
+<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TabABR.java" partName="TabABR.java" path="/comptes/E134287P/M1_MIAGE/algo_proj/ARB_Algo/src/proj/TabABR.java" title="TabABR.java" tooltip="ARB_Algo/src/proj/TabABR.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARB_Algo/src/proj/TabABR.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="428" selectionTopPixel="122"/>
 </editor>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NoeudBinaire.java" partName="NoeudBinaire.java" path="/comptes/E134287P/M1_MIAGE/algo_proj/ARB_Algo/src/proj/NoeudBinaire.java" title="NoeudBinaire.java" tooltip="ARB_Algo/src/proj/NoeudBinaire.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARB_Algo/src/proj/NoeudBinaire.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="359" selectionTopPixel="35"/>
+<editorState selectionHorizontalPixel="0" selectionLength="5" selectionOffset="1021" selectionTopPixel="305"/>
 </editor>
-<editor activePart="true" focus="true" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Main.java" partName="Main.java" path="/comptes/E134287P/M1_MIAGE/algo_proj/ARB_Algo/src/proj/Main.java" title="Main.java" tooltip="ARB_Algo/src/proj/Main.java" workbook="DefaultEditorWorkbook">
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Main.java" partName="Main.java" path="/comptes/E134287P/M1_MIAGE/algo_proj/ARB_Algo/src/proj/Main.java" title="Main.java" tooltip="ARB_Algo/src/proj/Main.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARB_Algo/src/proj/Main.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="1423" selectionTopPixel="525"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="2077" selectionTopPixel="608"/>
 </editor>
 <editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Case.java" partName="Case.java" path="/comptes/E134287P/M1_MIAGE/algo_proj/ARB_Algo/src/proj/Case.java" title="Case.java" tooltip="ARB_Algo/src/proj/Case.java" workbook="DefaultEditorWorkbook">
 <input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARB_Algo/src/proj/Case.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="21" selectionOffset="426" selectionTopPixel="0"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="687" selectionTopPixel="243"/>
 </editor>
-<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TabABR.java" partName="TabABR.java" path="/comptes/E134287P/M1_MIAGE/algo_proj/ARB_Algo/src/proj/TabABR.java" title="TabABR.java" tooltip="ARB_Algo/src/proj/TabABR.java" workbook="DefaultEditorWorkbook">
-<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARB_Algo/src/proj/TabABR.java"/>
-<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="3306" selectionTopPixel="1500"/>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ArbreBinaireRecherche.java" partName="ArbreBinaireRecherche.java" path="/comptes/E134287P/M1_MIAGE/algo_proj/ARB_Algo/src/proj/ArbreBinaireRecherche.java" title="ArbreBinaireRecherche.java" tooltip="ARB_Algo/src/proj/ArbreBinaireRecherche.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARB_Algo/src/proj/ArbreBinaireRecherche.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="6135" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TABR_FAKE.java" partName="TABR_FAKE.java" path="/comptes/E134287P/M1_MIAGE/algo_proj/ARB_Algo/src/proj/TABR_FAKE.java" title="TABR_FAKE.java" tooltip="ARB_Algo/src/proj/TABR_FAKE.java" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARB_Algo/src/proj/TABR_FAKE.java"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="0" selectionTopPixel="0"/>
+</editor>
+<editor id="org.eclipse.ui.DefaultTextEditor" name="test.txt" partName="test.txt" path="/comptes/E134287P/M1_MIAGE/algo_proj/ARB_Algo/txt/test.txt" title="test.txt" tooltip="ARB_Algo/txt/test.txt" workbook="DefaultEditorWorkbook">
+<input factoryID="org.eclipse.ui.part.FileEditorInputFactory" path="/ARB_Algo/txt/test.txt"/>
+<editorState selectionHorizontalPixel="0" selectionLength="0" selectionOffset="50" selectionTopPixel="0"/>
 </editor>
 </editors>
 <views>
@@ -66,6 +77,7 @@
 <viewState PRIMARY_SORT_FIELD="org.eclipse.ui.ide.severityAndDescriptionField" categoryGroup="org.eclipse.ui.ide.severity" markerContentGenerator="org.eclipse.ui.ide.problemsGenerator" partName="Problems">
 <expanded>
 <category IMemento.internal.id="Errors"/>
+<category IMemento.internal.id="Warnings"/>
 <category IMemento.internal.id="Warnings (6 items)"/>
 </expanded>
 <columnWidths org.eclipse.ui.ide.locationField="90" org.eclipse.ui.ide.markerType="216" org.eclipse.ui.ide.pathField="120" org.eclipse.ui.ide.resourceField="90" org.eclipse.ui.ide.severityAndDescriptionField="733"/>
@@ -233,7 +245,6 @@
 <view id="org.eclipse.jdt.ui.SourceView"/>
 <view id="org.eclipse.debug.ui.DebugView"/>
 <view id="org.eclipse.ui.console.ConsoleView"/>
-<view id="org.eclipse.ui.views.ContentOutline"/>
 <view id="org.eclipse.ui.navigator.ProjectExplorer"/>
 <fastViewBars/>
 <layout>
@@ -279,13 +290,11 @@
 </folder>
 </info>
 <info folder="true" part="right" ratio="0.7495812" ratioLeft="895" ratioRight="299" relationship="2" relative="org.eclipse.ui.editorss">
-<folder activePageID="org.eclipse.ui.views.ContentOutline" appearance="2" expanded="2">
-<page content="org.eclipse.ui.views.ContentOutline" label="Outline"/>
+<folder appearance="2" expanded="2">
+<page content="org.eclipse.ui.views.ContentOutline" label="LabelNotFound"/>
 <page content="org.eclipse.ui.texteditor.TemplatesView" label="LabelNotFound"/>
 <page content="org.eclipse.ant.ui.views.AntView" label="LabelNotFound"/>
-<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory">
-<part id="0"/>
-</presentation>
+<presentation id="org.eclipse.ui.presentations.WorkbenchPresentationFactory"/>
 </folder>
 </info>
 </mainWindow>
@@ -402,165 +411,161 @@
 <workingSets/>
 <navigationHistory>
 <editors>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ARB_Algo/src/proj/Main.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ARB_Algo/src/proj/Case.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ARB_Algo/src/proj/TabABR.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ARB_Algo/src/proj/NoeudBinaire.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ARB_Algo/src/proj/ArbreBinaireRecherche.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ARB_Algo/src/proj/Main.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ARB_Algo/src/proj/Case.java"/>
 <editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ARB_Algo/src/proj/ArbreBinaireRecherche.java"/>
-<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" path="/ARB_Algo/src/proj/NoeudBinaire.java"/>
+<editor factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" path="/ARB_Algo/txt/test.txt"/>
 </editors>
-<item historyLabel="TabABR.java" index="2">
-<position info="not_deleted" x="3105" y="0"/>
+<item historyLabel="ArbreBinaireRecherche.java" index="3">
+<position info="not_deleted" x="2594" y="0"/>
 </item>
-<item historyLabel="Case.java" index="1">
-<position info="not_deleted" x="585" y="0"/>
+<item historyLabel="TabABR.java" index="0">
+<position info="not_deleted" x="6558" y="8"/>
 </item>
-<item historyLabel="NoeudBinaire.java" index="3">
-<position info="not_deleted" x="359" y="0"/>
+<item historyLabel="TabABR.java" index="0">
+<position info="not_deleted" x="3935" y="0"/>
 </item>
-<item historyLabel="ArbreBinaireRecherche.java" index="4">
-<position info="not_deleted" x="1410" y="0"/>
+<item historyLabel="Main.java" index="2">
+<position info="not_deleted" x="2278" y="0"/>
 </item>
-<item historyLabel="TabABR.java" index="2">
-<position info="not_deleted" x="3227" y="0"/>
+<item historyLabel="TabABR.java" index="0">
+<position info="not_deleted" x="3636" y="0"/>
 </item>
-<item historyLabel="Main.java" index="0">
-<position info="not_deleted" x="804" y="0"/>
+<item historyLabel="Main.java" index="2">
+<position info="not_deleted" x="1359" y="0"/>
 </item>
-<item historyLabel="Case.java" index="1">
-<position info="not_deleted" x="585" y="0"/>
+<item historyLabel="TabABR.java" index="0">
+<position info="not_deleted" x="8378" y="0"/>
 </item>
-<item historyLabel="TabABR.java" index="2">
-<position info="not_deleted" x="3227" y="0"/>
+<item historyLabel="Main.java" index="2">
+<position info="not_deleted" x="1359" y="0"/>
 </item>
-<item historyLabel="ArbreBinaireRecherche.java" index="4">
-<position info="not_deleted" x="1551" y="0"/>
+<item historyLabel="Main.java" index="2">
+<position info="not_deleted" x="1851" y="0"/>
 </item>
-<item historyLabel="TabABR.java" index="2">
-<position info="not_deleted" x="3227" y="0"/>
+<item historyLabel="TabABR.java" index="0">
+<position info="not_deleted" x="8378" y="0"/>
 </item>
-<item historyLabel="Main.java" index="5">
-<position info="not_deleted" x="1444" y="0"/>
+<item historyLabel="TabABR.java" index="0">
+<position info="not_deleted" x="7804" y="0"/>
 </item>
-<item historyLabel="TabABR.java" index="2">
-<position info="not_deleted" x="702" y="0"/>
+<item historyLabel="test.txt" index="4">
+<position info="not_deleted" x="50" y="0"/>
 </item>
-<item historyLabel="Main.java" index="5">
-<position info="not_deleted" x="1444" y="0"/>
+<item historyLabel="NoeudBinaire.java" index="1">
+<position info="not_deleted" x="1021" y="5"/>
 </item>
-<item historyLabel="Main.java" index="5">
-<position info="not_deleted" x="982" y="0"/>
+<item historyLabel="Main.java" index="2">
+<position info="not_deleted" x="1860" y="0"/>
 </item>
-<item historyLabel="Main.java" index="5">
-<position info="not_deleted" x="1045" y="0"/>
+<item historyLabel="NoeudBinaire.java" index="1">
+<position info="not_deleted" x="1021" y="5"/>
 </item>
-<item historyLabel="TabABR.java" index="2">
-<position info="not_deleted" x="702" y="0"/>
+<item historyLabel="TabABR.java" index="0">
+<position info="not_deleted" x="8144" y="0"/>
 </item>
-<item historyLabel="Main.java" index="5">
-<position info="not_deleted" x="1045" y="0"/>
+<item historyLabel="ArbreBinaireRecherche.java" index="3">
+<position info="not_deleted" x="3241" y="21"/>
 </item>
-<item historyLabel="Main.java" index="5">
+<item historyLabel="ArbreBinaireRecherche.java" index="3">
+<position info="not_deleted" x="2351" y="0"/>
+</item>
+<item historyLabel="ArbreBinaireRecherche.java" index="3">
+<position info="not_deleted" x="3222" y="0"/>
+</item>
+<item historyLabel="TabABR.java" index="0">
+<position info="not_deleted" x="8049" y="0"/>
+</item>
+<item historyLabel="Main.java" index="2">
+<position info="not_deleted" x="1963" y="0"/>
+</item>
+<item historyLabel="TabABR.java" index="0">
+<position info="not_deleted" x="8049" y="0"/>
+</item>
+<item historyLabel="TabABR.java" index="0">
+<position info="not_deleted" x="8426" y="0"/>
+</item>
+<item historyLabel="TabABR.java" index="0">
 <position/>
 </item>
-<item historyLabel="TabABR.java" index="2">
-<position info="not_deleted" x="3413" y="4"/>
+<item historyLabel="ArbreBinaireRecherche.java" index="3">
+<position info="not_deleted" x="3222" y="0"/>
 </item>
-<item historyLabel="Main.java" index="5">
+<item historyLabel="ArbreBinaireRecherche.java" index="3">
+<position info="not_deleted" x="6337" y="0"/>
+</item>
+<item historyLabel="ArbreBinaireRecherche.java" index="3">
+<position info="not_deleted" x="6152" y="0"/>
+</item>
+<item historyLabel="TabABR.java" index="0">
 <position/>
 </item>
-<item historyLabel="Main.java" index="5">
-<position info="not_deleted" x="1045" y="0"/>
+<item historyLabel="Main.java" index="2">
+<position info="not_deleted" x="1963" y="0"/>
 </item>
-<item historyLabel="TabABR.java" index="2">
-<position info="not_deleted" x="3413" y="4"/>
+<item historyLabel="Main.java" index="2">
+<position info="not_deleted" x="2077" y="0"/>
 </item>
-<item historyLabel="Case.java" index="6">
-<position info="not_deleted" x="585" y="0"/>
-</item>
-<item historyLabel="Main.java" index="5">
-<position info="not_deleted" x="1045" y="0"/>
-</item>
-<item historyLabel="Main.java" index="5">
+<item historyLabel="TabABR.java" index="0">
 <position/>
 </item>
-<item historyLabel="Main.java" index="5">
-<position info="not_deleted" x="1283" y="0"/>
+<item historyLabel="NoeudBinaire.java" index="1">
+<position info="not_deleted" x="1021" y="5"/>
 </item>
-<item historyLabel="Main.java" index="5">
-<position info="not_deleted" x="904" y="0"/>
+<item historyLabel="ArbreBinaireRecherche.java" index="3">
+<position info="not_deleted" x="6225" y="0"/>
 </item>
-<item historyLabel="Main.java" index="5">
-<position info="not_deleted" x="1416" y="0"/>
+<item historyLabel="TabABR.java" index="0">
+<position info="not_deleted" x="8718" y="0"/>
 </item>
-<item historyLabel="TabABR.java" index="2">
-<position info="not_deleted" x="3413" y="4"/>
+<item historyLabel="ArbreBinaireRecherche.java" index="3">
+<position info="not_deleted" x="6225" y="0"/>
 </item>
-<item historyLabel="Main.java" index="5">
+<item historyLabel="TabABR.java" index="0">
+<position info="not_deleted" x="8915" y="0"/>
+</item>
+<item historyLabel="ArbreBinaireRecherche.java" index="3">
+<position info="not_deleted" x="6225" y="0"/>
+</item>
+<item historyLabel="TabABR.java" index="0">
 <position/>
 </item>
-<item historyLabel="TabABR.java" index="2">
-<position info="not_deleted" x="3413" y="4"/>
+<item historyLabel="ArbreBinaireRecherche.java" index="3">
+<position info="not_deleted" x="6166" y="0"/>
 </item>
-<item historyLabel="Main.java" index="5">
+<item historyLabel="TabABR.java" index="0">
 <position/>
 </item>
-<item historyLabel="TabABR.java" index="2">
-<position info="not_deleted" x="3005" y="9"/>
+<item historyLabel="TabABR.java" index="0">
+<position info="not_deleted" x="8884" y="0"/>
 </item>
-<item historyLabel="Main.java" index="5">
-<position info="not_deleted" x="635" y="0"/>
+<item historyLabel="ArbreBinaireRecherche.java" index="3">
+<position info="not_deleted" x="6166" y="0"/>
 </item>
-<item historyLabel="TabABR.java" index="2">
-<position info="not_deleted" x="3005" y="9"/>
+<item historyLabel="ArbreBinaireRecherche.java" index="3">
+<position info="not_deleted" x="6078" y="0"/>
 </item>
-<item historyLabel="ArbreBinaireRecherche.java" index="7">
-<position info="not_deleted" x="1600" y="0"/>
+<item historyLabel="TabABR.java" index="0">
+<position info="not_deleted" x="9006" y="0"/>
 </item>
-<item historyLabel="ArbreBinaireRecherche.java" index="7">
-<position info="not_deleted" x="1511" y="0"/>
+<item historyLabel="ArbreBinaireRecherche.java" index="3">
+<position info="not_deleted" x="6078" y="0"/>
 </item>
-<item historyLabel="Main.java" index="5">
-<position info="not_deleted" x="880" y="0"/>
+<item historyLabel="TabABR.java" index="0">
+<position info="not_deleted" x="8450" y="80"/>
 </item>
-<item historyLabel="TabABR.java" index="2">
-<position info="not_deleted" x="3306" y="0"/>
+<item historyLabel="ArbreBinaireRecherche.java" index="3">
+<position info="not_deleted" x="6135" y="0"/>
 </item>
-<item historyLabel="Case.java" index="6">
-<position info="not_deleted" x="585" y="0"/>
+<item historyLabel="NoeudBinaire.java" index="1">
+<position info="not_deleted" x="1021" y="5"/>
 </item>
-<item historyLabel="NoeudBinaire.java" index="8">
-<position info="not_deleted" x="359" y="0"/>
+<item historyLabel="ArbreBinaireRecherche.java" index="3">
+<position info="not_deleted" x="6135" y="0"/>
 </item>
-<item historyLabel="ArbreBinaireRecherche.java" index="7">
-<position info="not_deleted" x="1407" y="0"/>
-</item>
-<item historyLabel="TabABR.java" index="2">
-<position info="not_deleted" x="3306" y="0"/>
-</item>
-<item historyLabel="ArbreBinaireRecherche.java" index="7">
-<position info="not_deleted" x="1404" y="0"/>
-</item>
-<item historyLabel="Main.java" index="5">
-<position info="not_deleted" x="880" y="0"/>
-</item>
-<item historyLabel="Case.java" index="6">
-<position info="not_deleted" x="426" y="21"/>
-</item>
-<item historyLabel="ArbreBinaireRecherche.java" index="7">
-<position info="not_deleted" x="232" y="0"/>
-</item>
-<item historyLabel="NoeudBinaire.java" index="8">
-<position info="not_deleted" x="359" y="0"/>
-</item>
-<item historyLabel="ArbreBinaireRecherche.java" index="7">
-<position info="not_deleted" x="1398" y="0"/>
-</item>
-<item active="true" historyLabel="Main.java" index="5">
-<position info="not_deleted" x="880" y="0"/>
+<item active="true" historyLabel="TabABR.java" index="0">
+<position info="not_deleted" x="8450" y="80"/>
 </item>
 </navigationHistory>
 <input factoryID="org.eclipse.ui.internal.model.ResourceFactory" path="/" type="8"/>
@@ -579,11 +584,26 @@
 </trimLayout>
 </window>
 <mruList>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TabABR.java" tooltip="ARB_Algo/src/proj/TabABR.java">
-<persistable path="/ARB_Algo/src/proj/TabABR.java"/>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.ui.DefaultTextEditor" name="test.txt" tooltip="ARB_Algo/txt/test.txt">
+<persistable path="/ARB_Algo/txt/test.txt"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TABR_FAKE.java" tooltip="ARB_Algo/src/proj/TABR_FAKE.java">
+<persistable path="/ARB_Algo/src/proj/TABR_FAKE.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ArbreBinaireRecherche.java" tooltip="ARB_Algo/src/proj/ArbreBinaireRecherche.java">
+<persistable path="/ARB_Algo/src/proj/ArbreBinaireRecherche.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Case.java" tooltip="ARB_Algo/src/proj/Case.java">
 <persistable path="/ARB_Algo/src/proj/Case.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Main.java" tooltip="ARB_Algo/src/proj/Main.java">
+<persistable path="/ARB_Algo/src/proj/Main.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="NoeudBinaire.java" tooltip="ARB_Algo/src/proj/NoeudBinaire.java">
+<persistable path="/ARB_Algo/src/proj/NoeudBinaire.java"/>
+</file>
+<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TabABR.java" tooltip="ARB_Algo/src/proj/TabABR.java">
+<persistable path="/ARB_Algo/src/proj/TabABR.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="TABR.java" tooltip="ARB_Algo/src/proj/TABR.java">
 <persistable path="/ARB_Algo/src/proj/TABR.java"/>
@@ -594,14 +614,8 @@
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="CompareNoeud.java" tooltip="ARB_Algo/src/proj/CompareNoeud.java">
 <persistable path="/ARB_Algo/src/proj/CompareNoeud.java"/>
 </file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Main.java" tooltip="ARB_Algo/src/proj/Main.java">
-<persistable path="/ARB_Algo/src/proj/Main.java"/>
-</file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="Noeud.java" tooltip="ARB_Algo/src/proj/Noeud.java">
 <persistable path="/ARB_Algo/src/proj/Noeud.java"/>
-</file>
-<file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="ArbreBinaireRecherche.java" tooltip="ARB_Algo/src/proj/ArbreBinaireRecherche.java">
-<persistable path="/ARB_Algo/src/proj/ArbreBinaireRecherche.java"/>
 </file>
 <file factoryID="org.eclipse.ui.part.FileEditorInputFactory" id="org.eclipse.jdt.ui.CompilationUnitEditor" name="testNoeud.java" tooltip="ARB_Algo/src/testNoeud.java">
 <persistable path="/ARB_Algo/src/testNoeud.java"/>
