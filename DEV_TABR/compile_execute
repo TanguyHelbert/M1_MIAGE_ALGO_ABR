@@ -1,4 +1,4 @@
 javac -d ./bin/ -cp ./bin/proj/ ./src/proj/*.java 
-cd bin
+export CLASSPATH=$CLASSPATH:bin
 java proj.Application
 

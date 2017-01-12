@@ -4,8 +4,7 @@ Trois manieres d'executer le projet :
 
 Dans le repertoire du projet vous pouvez trouver le .jar ci-dessus et double cliquer sur celui-ci.
 
-N.B. : Si jamais vous n'avez pas les permissions, mettez a jour les permissions du .jar
-solution : chmod 777 proj_TABR.jar
+N.B. : Si jamais vous n'avez pas les permissions 
 
 2 - utiliser le script
 
